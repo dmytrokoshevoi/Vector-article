@@ -114,12 +114,8 @@ a{ color:inherit; }
 /* ====== 7. Hero ====== */
 .hero{ max-width:var(--maxw); margin:22px auto 0; padding:0 28px; }
 .hero-inner{ position:relative; aspect-ratio: 16 / 8;
-  border-radius:6px; overflow:hidden;
-  background:
-    radial-gradient(120% 80% at 20% 0%, #2a2f3a 0%, transparent 60%),
-    radial-gradient(80% 80% at 100% 100%, #1a1d24 0%, transparent 60%),
-    linear-gradient(135deg, #14171d 0%, #0b0d12 100%);
-  color:#fff; }
+  border-radius:6px; overflow:hidden; }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; }
 .hero-grid{ position:absolute; inset:0;
   background-image:
     linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
