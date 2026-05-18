@@ -2,452 +2,14 @@
 <html lang="uk">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=1280" />
-<title>Як лабораторія стала digital-first — кейс трансформації ДІЛА — vector</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>vector — стаття</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
-<style>
-:root{
-  --ink:    #0f1115;
-  --ink-2:  #272a31;
-  --ink-3:  #4a5060;
-  --muted:  #7a8092;
-  --line:   #e6e8ec;
-  --line-2: #f1f2f5;
-  --bg:     #ffffff;
-  --bg-2:   #f7f8fa;
-
-  --accent:   #ff3b1f;
-  --accent-2: #ffece8;
-
-  --maxw:    1200px;
-  --read-w:   720px;
-}
-
-*{ box-sizing:border-box; }
-html,body{ margin:0; padding:0; background:var(--bg); color:var(--ink-2); }
-body{
-  font-family: 'Manrope', system-ui, sans-serif;
-  font-size:16px; line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-a{ color:inherit; }
-
-/* ====== 1. Progress bar ====== */
-.progress-bar{ position:fixed; top:0; left:0; right:0; height:3px; z-index:60; background:transparent; }
-.progress-bar .fill{ height:100%; width:0%; background:var(--accent); transition:width .08s linear; }
-
-/* ====== 2. Hot-topics ticker ====== */
-.ticker{ background:var(--ink); color:#fff; height:36px; display:flex; align-items:center; overflow:hidden; }
-.ticker .label{ background:var(--accent); color:#fff; font-weight:800; font-size:11px;
-  letter-spacing:.14em; text-transform:uppercase; padding:0 14px; height:100%;
-  display:inline-flex; align-items:center; flex:0 0 auto; }
-.ticker .track{ flex:1; overflow:hidden; }
-.ticker .reel{ display:inline-flex; gap:48px; white-space:nowrap; padding-left:24px;
-  animation: tick 80s linear infinite; font-size:13px; }
-.ticker .reel span{ color:#cfd2d8; }
-.ticker .reel b{ color:var(--accent); font-weight:700; margin-right:8px; }
-@keyframes tick{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-/* ====== 3. Utility strip ====== */
-.util{ border-bottom:1px solid var(--line); }
-.util .inner{ max-width:var(--maxw); margin:0 auto; padding:9px 28px;
-  display:flex; align-items:center; gap:18px; font-size:13px; color:var(--ink-3); }
-.util .spacer{ flex:1; }
-.util a{ text-decoration:none; }
-.util a:hover{ color:var(--accent); }
-.util .lang{ display:inline-flex; border:1px solid var(--line); border-radius:4px; overflow:hidden; }
-.util .lang span{ padding:2px 8px; font-weight:700; font-size:11px; }
-.util .lang .on{ background:var(--ink); color:#fff; }
-
-/* ====== 4. Main nav ====== */
-.nav{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid var(--line); }
-.nav .inner{ max-width:var(--maxw); margin:0 auto; padding:14px 28px;
-  display:flex; align-items:center; gap:24px; }
-.brand{ font-weight:800; font-size:26px; letter-spacing:-.02em; color:var(--ink);
-  text-decoration:none; display:inline-flex; align-items:center; }
-.brand .v{ display:inline-grid; place-items:center; width:30px; height:30px;
-  background:var(--ink); color:#fff; border-radius:6px; margin-right:8px;
-  font-size:18px; font-weight:800; }
-.brand .dot{ color:var(--accent); }
-.nav ul{ list-style:none; padding:0; margin:0; display:flex; gap:22px; flex:1;
-  justify-content:center; font-size:14px; font-weight:600; }
-.nav ul a{ text-decoration:none; color:var(--ink-2); }
-.nav ul a:hover{ color:var(--accent); }
-.nav .right{ display:flex; align-items:center; gap:14px; }
-.nav .icn{ width:36px; height:36px; border-radius:50%; display:grid; place-items:center;
-  border:1px solid var(--line); color:var(--ink-2); cursor:pointer; background:#fff; }
-.nav .cta{ background:var(--accent); color:#fff; text-decoration:none; font-weight:700;
-  padding:9px 16px; border-radius:6px; font-size:13px; letter-spacing:.02em; }
-.nav .cta:hover{ filter:brightness(1.05); }
-
-/* ====== 5. Breadcrumb ====== */
-.crumb{ max-width:var(--maxw); margin:24px auto 0; padding:0 28px;
-  font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); }
-.crumb a{ text-decoration:none; }
-.crumb a:hover{ color:var(--accent); }
-.crumb .sep{ margin:0 8px; color:var(--muted); }
-.crumb .here{ color:var(--ink); font-weight:700; }
-
-/* ====== 6. Article header ====== */
-.article-head{ max-width:var(--maxw); margin:18px auto 0; padding:0 28px; }
-.rubric{ display:inline-flex; align-items:center; gap:10px;
-  font-size:12px; font-weight:800; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--accent); margin-bottom:18px; }
-.rubric .pip{ width:9px; height:9px; background:var(--accent); display:inline-block; }
-.headline{ font-family:'Manrope',sans-serif; font-weight:800; font-size:46px;
-  line-height:1.10; letter-spacing:-.02em; color:var(--ink);
-  margin:0 0 18px; max-width:980px; text-wrap:balance; }
-.headline em{ color:var(--accent); font-style:normal; }
-.deck{ font-family:'Merriweather',serif; font-weight:400; font-size:19px;
-  line-height:1.55; color:var(--ink-2); margin:0 0 28px; max-width:820px; }
-
-.meta-row{ border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-  padding:14px 0; display:flex; align-items:center; gap:14px;
-  font-size:13px; color:var(--ink-3); }
-.meta-row .author{ display:flex; align-items:center; gap:12px; }
-.meta-row .av{ width:36px; height:36px; border-radius:50%;
-  background:linear-gradient(135deg, var(--accent), #ffa07a); color:#fff;
-  display:grid; place-items:center; font-weight:800; font-size:12px;
-  letter-spacing:.04em; }
-.meta-row b{ color:var(--ink); }
-.meta-row .sep{ color:var(--line); }
-.meta-row .spacer{ flex:1; }
-.meta-row .pill{ display:inline-flex; align-items:center; gap:8px;
-  background:var(--bg-2); border:1px solid var(--line); border-radius:999px;
-  padding:5px 12px; font-size:12px; font-weight:600; color:var(--ink-2); }
-.meta-row .pill .dot{ width:6px; height:6px; border-radius:50%; background:#16a34a;
-  box-shadow:0 0 0 3px rgba(22,163,74,.18); }
-
-/* ====== 7. Hero ====== */
-.hero{ max-width:var(--maxw); margin:22px auto 0; padding:0 28px; }
-.hero-inner{ position:relative; aspect-ratio: 16 / 8;
-  border-radius:6px; overflow:hidden;
-  background:
-    radial-gradient(120% 80% at 20% 0%, #2a2f3a 0%, transparent 60%),
-    radial-gradient(80% 80% at 100% 100%, #1a1d24 0%, transparent 60%),
-    linear-gradient(135deg, #14171d 0%, #0b0d12 100%);
-  color:#fff; }
-.hero-grid{ position:absolute; inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size: 64px 64px; opacity:.7; }
-.hero-badge{ position:absolute; top:22px; left:22px;
-  display:inline-flex; align-items:center; gap:8px;
-  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
-  backdrop-filter:blur(6px);
-  padding:7px 12px; border-radius:999px; font-size:11px; font-weight:700;
-  letter-spacing:.14em; text-transform:uppercase; color:#fff; }
-.hero-badge .pip{ width:8px; height:8px; background:var(--accent); border-radius:2px; }
-
-.hero-caption{ position:absolute; left:22px; bottom:22px; max-width:60%; }
-.hero-caption .k{ font-size:11px; font-weight:800; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
-.hero-caption .t{ font-family:'Manrope',sans-serif; font-weight:800;
-  font-size:26px; line-height:1.20; color:#fff; max-width:520px; text-wrap:balance; }
-.hero-stamp{ position:absolute; right:22px; bottom:22px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:11px;
-  color:rgba(255,255,255,.7); letter-spacing:.08em; text-align:right; line-height:1.5; }
-
-/* hero composed object: phone-mockup tile */
-.hero-obj{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:220px; height:330px; border-radius:28px;
-  background:linear-gradient(180deg, #1c2029, #0f1115);
-  border:1px solid rgba(255,255,255,.14);
-  box-shadow: 0 30px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
-  padding:14px; display:flex; flex-direction:column; gap:10px; }
-.hero-obj .screen{ flex:1; border-radius:20px; background:#0a0c11;
-  border:1px solid rgba(255,255,255,.06); padding:14px;
-  display:flex; flex-direction:column; gap:10px; }
-.hero-obj .bar{ height:8px; border-radius:4px; background:rgba(255,255,255,.08); }
-.hero-obj .bar.s{ width:60%; }
-.hero-obj .bar.a{ width:80%; background:rgba(255,59,31,.5); }
-.hero-obj .tile{ height:46px; border-radius:10px; background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.06); }
-.hero-obj .tile.accent{ background:linear-gradient(135deg, rgba(255,59,31,.35), rgba(255,59,31,.1));
-  border-color: rgba(255,59,31,.4); }
-.hero-obj .notch{ width:60px; height:6px; border-radius:4px; background:rgba(255,255,255,.18);
-  margin:0 auto 4px; }
-
-/* ====== 8. Layout grid ====== */
-.layout{ max-width: var(--maxw); margin: 56px auto 0; padding: 0 28px;
-  display: grid; grid-template-columns: 1fr minmax(0, var(--read-w)) 1fr; gap: 36px; }
-.body{ grid-column: 2; }
-.rail-l, .rail-r{ position: relative; }
-.tools, .toc{ position: sticky; top: 96px; }
-
-/* ====== Left rail tools ====== */
-.tools{ display:flex; flex-direction:column; gap:10px; align-items:flex-end; padding-top:4px; }
-.tool{ width:42px; display:flex; flex-direction:column; align-items:center; gap:4px; }
-.tool button{ width:42px; height:42px; border-radius:8px; background:#fff;
-  border:1px solid var(--line); color:var(--ink-2); display:grid; place-items:center;
-  cursor:pointer; transition:.15s; padding:0; }
-.tool button:hover{ border-color:var(--accent); color:var(--accent); }
-.tool .ct{ font-size:11px; font-weight:700; color:var(--muted); }
-.tool svg{ width:18px; height:18px; }
-
-/* ====== Right rail TOC ====== */
-.toc{ border-left:2px solid var(--line); padding-left:16px; }
-.toc .ttl{ font-size:11px; font-weight:800; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--ink-3); margin-bottom:14px; }
-.toc ol{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
-.toc a{ display:flex; gap:10px; align-items:flex-start; text-decoration:none;
-  color:var(--ink-3); font-size:13px; line-height:1.4; }
-.toc .n{ font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size:11px; color:var(--muted); padding-top:2px; flex:0 0 auto; min-width:20px; }
-.toc li.on a{ color:var(--accent); font-weight:700; }
-.toc li.on .n{ color:var(--accent); }
-
-/* ====== Body typography ====== */
-.body p{ font-family:'Manrope',sans-serif; font-size:18px; line-height:1.75;
-  color:var(--ink-2); margin:0 0 22px; }
-.body p strong{ color:var(--ink); font-weight:700; }
-.body p a{ color:var(--accent); text-decoration:none;
-  border-bottom:1px solid rgba(255,59,31,.4); }
-.body p a:hover{ border-bottom-color:var(--accent); }
-
-.lead{ font-family:'Merriweather',serif; font-weight:700;
-  font-size:22px; line-height:1.5; color:var(--ink);
-  margin:0 0 32px; letter-spacing:-.005em; }
-
-/* H2 / H3 */
-.body h2{ font-family:'Manrope',sans-serif; font-weight:800; font-size:30px;
-  line-height:1.18; letter-spacing:-.015em; color:var(--ink);
-  margin:56px 0 8px; text-wrap:balance; scroll-margin-top:96px; }
-.body h2 .kicker{ display:block; font-size:12px; font-weight:800;
-  letter-spacing:.18em; text-transform:uppercase; color:var(--accent);
-  margin-bottom:12px; }
-.rule{ position:relative; height:1px; background:var(--line);
-  margin:0 0 28px; }
-.rule::before{ content:""; position:absolute; left:0; top:0;
-  width:40px; height:3px; background:var(--accent); transform:translateY(-1px); }
-
-.body h3{ font-family:'Manrope',sans-serif; font-weight:800; font-size:21px;
-  line-height:1.30; letter-spacing:-.01em; color:var(--ink); margin:36px 0 12px; }
-
-/* lists */
-.body ul.dl{ list-style:none; padding:0; margin:0 0 22px;
-  display:flex; flex-direction:column; gap:14px; }
-.body ul.dl > li{ font-size:18px; line-height:1.7; color:var(--ink-2);
-  padding-left:22px; position:relative; }
-.body ul.dl > li::before{ content:""; position:absolute; left:0; top:.7em;
-  width:10px; height:2px; background:var(--accent); }
-.body ul.dl > li strong{ color:var(--ink); font-weight:800; }
-
-/* ====== Takeaways ====== */
-.takeaways{ background:var(--bg-2); border:1px solid var(--line);
-  border-left:3px solid var(--accent); border-radius:6px;
-  padding:20px 22px; margin:0 0 36px; }
-.takeaways .h{ display:flex; align-items:center; gap:10px;
-  font-size:11px; font-weight:800; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
-.takeaways .h svg{ width:14px; height:14px; }
-.takeaways ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
-.takeaways li{ font-size:15px; line-height:1.55; color:var(--ink-2);
-  padding-left:18px; position:relative; }
-.takeaways li::before{ content:""; position:absolute; left:0; top:.7em;
-  width:8px; height:2px; background:var(--accent); }
-.takeaways li b{ color:var(--ink); font-weight:700; }
-
-/* ====== Pull quote ====== */
-.pq{ position:relative; border-top:2px solid var(--ink);
-  margin:36px 0; padding:34px 0 8px; }
-.pq .mk{ position:absolute; top:-22px; left:0; background:var(--bg);
-  padding:0 12px 0 0; font-family:'Merriweather',serif; font-weight:700;
-  font-size:64px; line-height:1; color:var(--accent); }
-.pq p{ font-family:'Merriweather',serif; font-style:italic; font-weight:700;
-  font-size:26px; line-height:1.30; color:var(--ink); margin:0 0 14px;
-  letter-spacing:-.005em; text-wrap:balance; }
-.pq .at{ font-size:12px; font-weight:700; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--muted); }
-
-/* ====== read-also interrupt ====== */
-.ralso{ border-left:3px solid var(--accent);
-  background:linear-gradient(90deg, var(--accent-2), transparent 80%);
-  padding:16px 18px; margin:28px 0; border-radius:0 6px 6px 0; }
-.ralso .lbl{ font-size:11px; font-weight:800; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
-.ralso a{ display:inline-flex; align-items:center; gap:8px;
-  font-size:17px; font-weight:700; color:var(--ink); text-decoration:none; }
-.ralso a:hover{ color:var(--accent); }
-.ralso a .arr{ color:var(--accent); }
-
-/* ====== Stats ====== */
-.stats{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;
-  margin:28px 0; }
-.stat{ background:#fff; border:1px solid var(--line); border-top:3px solid var(--accent);
-  border-radius:6px; padding:18px 18px 20px; }
-.stat .n{ font-family:'Manrope',sans-serif; font-weight:800; font-size:36px;
-  letter-spacing:-.02em; color:var(--ink); line-height:1.1; }
-.stat .n .u{ color:var(--accent); font-size:18px; margin-left:4px; }
-.stat .l{ font-size:12px; color:var(--ink-3); line-height:1.4; margin-top:8px; }
-
-/* ====== Process steps ====== */
-.process{ border:1px solid var(--line); border-radius:6px;
-  overflow:hidden; margin:28px 0; }
-.process .it{ display:grid; grid-template-columns: 64px 1fr; gap:0;
-  border-bottom:1px solid var(--line); padding:16px 18px; }
-.process .it:last-child{ border-bottom:0; }
-.process .it:nth-child(even){ background:var(--bg-2); }
-.process .it .s{ font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size:12px; font-weight:700; color:var(--accent); padding-top:3px; }
-.process .it h4{ font-family:'Manrope',sans-serif; font-weight:800; font-size:16px;
-  margin:0 0 4px; color:var(--ink); }
-.process .it p{ font-size:15px; line-height:1.55; color:var(--ink-3); margin:0; font-family:'Manrope',sans-serif; }
-
-/* ====== Before / after ====== */
-.compare{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin:28px 0; }
-.compare .col{ border:1px solid var(--line); border-radius:6px; padding:18px; }
-.compare .col.before{ background:var(--bg-2); }
-.compare .col.after{ background:#fff; border-color: rgba(255,59,31,.4); }
-.compare .lbl{ display:flex; align-items:center; gap:8px; font-size:11px;
-  font-weight:800; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--muted); margin-bottom:10px; }
-.compare .col.after .lbl{ color:var(--accent); }
-.compare .lbl .dot{ width:8px; height:8px; border-radius:50%; background:currentColor; }
-.compare ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
-.compare li{ font-size:14px; line-height:1.5; padding-left:16px; position:relative; color:var(--ink-2); }
-.compare li::before{ content:""; position:absolute; left:0; top:.65em; width:8px; height:2px; background:currentColor; }
-.compare .col.before li{ color:var(--ink-3); }
-.compare .col.after li{ color:var(--ink-2); }
-.compare .col.after li::before{ background:var(--accent); }
-
-/* ====== Editorial placeholder pill ====== */
-.ph{ display:inline-block; font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size:.85em; background:#fff3a8; color:#5a4a00;
-  padding:1px 6px; border-radius:3px; border:1px dashed #d6c46a; }
-
-/* ====== Tag chips ====== */
-.tags{ display:flex; flex-wrap:wrap; gap:8px; margin:36px 0 28px; }
-.tag{ font-size:12px; font-weight:600; color:var(--ink-2);
-  border:1px solid var(--line); background:#fff; border-radius:999px;
-  padding:6px 12px; text-decoration:none; }
-.tag:hover{ border-color:var(--accent); color:var(--accent); }
-
-/* ====== Author card ====== */
-.authorcard{ display:grid; grid-template-columns: 72px 1fr auto; gap:18px;
-  align-items:center; background:var(--bg-2); border:1px solid var(--line);
-  border-radius:8px; padding:24px; margin:28px 0; }
-.authorcard .av{ width:72px; height:72px; border-radius:50%;
-  background:linear-gradient(135deg, var(--accent), #ffa07a); color:#fff;
-  display:grid; place-items:center; font-weight:800; font-size:22px; }
-.authorcard .name{ font-size:18px; font-weight:800; color:var(--ink); }
-.authorcard .role{ font-size:12px; font-weight:800; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--accent); margin:4px 0 8px; }
-.authorcard .bio{ font-size:14px; color:var(--ink-3); line-height:1.55; max-width:520px; }
-.authorcard .follow{ background:var(--ink); color:#fff; text-decoration:none;
-  font-weight:700; font-size:13px; padding:9px 14px; border-radius:8px; }
-
-/* ====== Comments ====== */
-.comments{ background:#fff; border:1px solid var(--line); border-radius:8px;
-  padding:24px; margin:0 0 8px; }
-.comments h3{ display:flex; align-items:center; gap:10px; margin:0 0 6px;
-  font-family:'Manrope',sans-serif; font-weight:800; font-size:18px; color:var(--ink); }
-.comments h3 .chip{ background:var(--accent); color:#fff; font-size:11px;
-  font-weight:800; letter-spacing:.06em; padding:3px 8px; border-radius:4px; }
-.comments .sub{ font-size:13px; color:var(--ink-3); margin-bottom:14px; }
-.comments textarea{ width:100%; min-height:90px; border:1px solid var(--line);
-  border-radius:6px; padding:12px; font:inherit; resize:vertical; }
-.comments .foot{ display:flex; align-items:center; gap:12px; margin-top:12px;
-  font-size:12px; color:var(--muted); }
-.comments .submit{ margin-left:auto; background:var(--accent); color:#fff;
-  border:0; padding:9px 16px; border-radius:6px; font-weight:700; cursor:pointer; }
-
-/* ====== Related cards ====== */
-.related-wrap{ max-width:var(--maxw); margin:72px auto 0; padding:0 28px; }
-.related-wrap .head{ display:flex; align-items:baseline; gap:14px; margin-bottom:22px; }
-.related-wrap .head h3{ font-family:'Manrope',sans-serif; font-weight:800; font-size:26px;
-  margin:0; color:var(--ink); letter-spacing:-.01em; }
-.related-wrap .head .k{ font-size:11px; font-weight:800; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--accent); }
-.related{ display:grid; grid-template-columns: repeat(4, 1fr); gap:18px; }
-.card{ display:flex; flex-direction:column; gap:8px; text-decoration:none; color:inherit; }
-.card .img{ aspect-ratio: 16/10; border-radius:6px; position:relative; overflow:hidden;
-  border:1px solid var(--line); }
-.card .img .lbl{ position:absolute; left:14px; bottom:12px; color:#fff;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size:11px; letter-spacing:.06em; }
-.card .img.a{ background:linear-gradient(135deg, #1f7a44, #0f3a22); }
-.card .img.b{ background:linear-gradient(135deg, #1a3a8a, #0c1e4d); }
-.card .img.c{ background:linear-gradient(135deg, #ff3b1f, #b3290f); }
-.card .img.d{ background:linear-gradient(135deg, #5b2a8a, #2a1244); }
-.card .cat{ font-size:11px; font-weight:800; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--accent); margin-top:4px; }
-.card h4{ font-family:'Merriweather',serif; font-weight:700; font-size:16px;
-  line-height:1.35; color:var(--ink); margin:0; }
-.card:hover h4{ color:var(--accent); }
-.card .m{ font-size:12px; color:var(--muted); }
-
-/* ====== Newsletter ====== */
-.newsletter{ max-width:var(--maxw); margin:48px auto 0; padding:0 28px; }
-.newsletter .box{ background:var(--ink); color:#fff; border-radius:10px;
-  padding:36px; display:grid; grid-template-columns: 1.1fr 1fr; gap:30px; align-items:center; }
-.newsletter .k{ font-size:11px; font-weight:800; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
-.newsletter h3{ font-family:'Manrope',sans-serif; font-weight:800; font-size:28px;
-  line-height:1.15; margin:0 0 8px; letter-spacing:-.01em; }
-.newsletter p{ color:#bcc0c8; margin:0; font-size:14px; line-height:1.6; }
-.newsletter form{ display:flex; gap:8px; }
-.newsletter input{ flex:1; background:#1a1d24; color:#fff; border:1px solid #2a2e36;
-  border-radius:8px; padding:13px 14px; font:inherit; outline:none; }
-.newsletter input::placeholder{ color:#7a8092; }
-.newsletter button{ background:var(--accent); color:#fff; border:0; border-radius:8px;
-  padding:13px 20px; font-weight:800; cursor:pointer; }
-
-/* ====== Footer ====== */
-.foot{ margin-top:72px; border-top:1px solid var(--line); background:#fff; }
-.foot .inner{ max-width:var(--maxw); margin:0 auto; padding:48px 28px 24px;
-  display:grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap:36px; }
-.foot h5{ font-size:11px; font-weight:800; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--ink-3); margin:0 0 14px; }
-.foot ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
-.foot a{ text-decoration:none; color:var(--ink-2); font-size:14px; }
-.foot a:hover{ color:var(--accent); }
-.foot .about{ font-size:13px; color:var(--ink-3); line-height:1.55;
-  margin:0 0 18px; max-width:340px; }
-.foot .socials{ display:flex; gap:8px; }
-.foot .socials a{ width:34px; height:34px; border-radius:50%; border:1px solid var(--line);
-  display:grid; place-items:center; }
-.foot .bot{ max-width:var(--maxw); margin:0 auto; padding:18px 28px 30px;
-  display:flex; align-items:center; gap:14px; font-size:12px; color:var(--muted);
-  border-top:1px solid var(--line); }
-.foot .bot .spacer{ flex:1; }
-
-/* ====== Inline emphasis sentence ====== */
-.inline-q{ background: linear-gradient(180deg, transparent 60%, var(--accent-2) 60%);
-  padding:0 2px; }
-
-@media (max-width: 1080px){
-  .layout{ grid-template-columns: 1fr; max-width:780px; }
-  .rail-l, .rail-r{ display:none; }
-  .headline{ font-size:38px; }
-  .related{ grid-template-columns: repeat(2, 1fr); }
-  .newsletter .box{ grid-template-columns: 1fr; }
-  .foot .inner{ grid-template-columns: 1fr 1fr; }
-}
-</style>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<template id="__bundler_thumbnail" data-bg-color="#ffffff">
-  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="800" fill="#ffffff"/>
-    <rect x="0" y="0" width="1200" height="40" fill="#0f1115"/>
-    <rect x="0" y="0" width="160" height="40" fill="#ff3b1f"/>
-    <rect x="440" y="280" width="60" height="60" rx="12" fill="#0f1115"/>
-    <text x="470" y="324" font-family="Manrope, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#ffffff" text-anchor="middle">V</text>
-    <text x="520" y="324" font-family="Manrope, Helvetica, Arial, sans-serif" font-size="44" font-weight="800" fill="#0f1115">vector</text>
-    <text x="690" y="324" font-family="Manrope, Helvetica, Arial, sans-serif" font-size="44" font-weight="800" fill="#ff3b1f">.</text>
-    <rect x="280" y="400" width="640" height="6" fill="#0f1115"/>
-    <rect x="280" y="430" width="540" height="6" fill="#0f1115"/>
-    <rect x="280" y="460" width="600" height="6" fill="#0f1115"/>
-    <rect x="280" y="500" width="40" height="3" fill="#ff3b1f"/>
-  </svg>
-</template>
-
 <!-- Progress bar -->
 <div class="progress-bar"><div class="fill" id="pfill"></div></div>
 
@@ -606,186 +168,17 @@ a{ color:inherit; }
   </aside>
 
   <!-- Body -->
-  <article class="body">
 
-    <p class="lead">Уявіть звичайний день українця у 2024 році. Він викликає таксі прямо з телефону, отримує посилку за скан-кодом в застосунку, керує тарифом мобільного через застосунок і замовляє довідку в «Дії», навіть не виходячи з дому. А потім йде здавати лабораторне дослідження — і отримує паперову роздруківку з результатами. Потім йде з роздруківкою до лікаря. Дивно, правда?</p>
-
-    <aside class="takeaways">
-      <div class="h">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5L20 7"/></svg>
-        Головне зі статті
-      </div>
-      <ul>
-        <li>ДІЛА прийшла з запитом «нам треба змінюватися» — <b>без ТЗ, але з відчутою потребою</b> рухатися в технологічний час клієнта.</li>
-        <li>Головний зсув був смисловий: <b>від разової транзакції — до довгострокового партнерства</b> у здоровʼї людини.</li>
-        <li>Дизайн застосунку переробили з нуля після появи нової айдентики від Havas — <b>щоб бренд і UX говорили одне й те саме</b>.</li>
-        <li>The Gradient у проєкті виступав <b>куратором</b>: тримав цілісність між стратегією, брендом, простором і продуктом.</li>
-        <li>Замовлення за два тапи, електронна черга, динаміка по біомаркерах, захищений лінк замість файлу — <b>цінність у тому, що ці рішення працюють як одна система</b>.</li>
-      </ul>
-    </aside>
-
-    <p>Цей розрив — між тим, як людина живе у цифровому світі, і тим, як вона взаємодіє з медичною лабораторією, — і став точкою, з якої почалася наша робота з Медичною Лабораторією "Діла". У цій колонці я розповім, як один із найбільших гравців на ринку лабораторної діагностики в Україні переосмислив себе — не як «місце, де здають аналізи», а як цифрового партнера у здоровʼї. І чому така трансформація — це ніколи не «зробити застосунок».</p>
-
-    <!-- Section 01 -->
-    <h2 id="b1"><span class="kicker">01 — Передумови</span>Чому переосмислення лабораторії стало неминучим</h2>
-    <div class="rule"></div>
-
-    <p>Діла прийшла до нас із запитом, який звучав приблизно так: «Нам треба змінюватися». Не було структурованого технічного завдання. Була радше відчута потреба: компанія розуміла, що ринок змінюється, що клієнти вже звикли до іншого рівня сервісу, і хотіла залучити стратегічного партнера, щоб розібратися — як рухатися далі й залишатися актуальною для людини.</p>
-
-    <p>Одну фразу з перших зустрічей я запамʼятав майже дослівно — і вона задала рамку всьому, що відбувалося далі.</p>
-
-    <div class="pq">
-      <span class="mk">“</span>
-      <p>Нам треба бути технологічними для клієнтів не тільки в самій лабораторії — там ми вже досягли високого рівня точності та достовірності — а в точках взаємодії з клієнтами, де ми хочемо робити свою роботу значно краще, ніж зараз.</p>
-      <div class="at">— Із перших зустрічей із командою ДІЛА</div>
-    </div>
-
-    <p>Це був запит не на продукт. Це був запит на образ майбутнього.</p>
-
-    <p>Перший тиждень роботи з Ділою ми назвали «розвідкою». Команда The Gradient працювала прямо в офісі ДІЛА, ходила у відділення, спілкувалася з маркетингом, комерцією, логістикою — усіма ключовими напрямами. Також, ми ходили в лабораторію, говорили з лаборантами та відчули їх натхнення та мотивацію в своїй роботі. Тим не менш, було важливо зрозуміти клієнта. Ми вдягнули корпоративну форму, ставали частиною команди відділень Діла і проводили короткі інтервʼю з людьми, поки ті чекали після здачі крові.</p>
-
-    <p>І тут стався перший важливий інсайт. Клієнти казали: <strong>«ДІЛА — 10 з 10»</strong>. Хвалили медсестер, швидкість, безболісність процедури, самі відділення. Проблема була не в тому, що щось працювало погано. Проблема була в розриві: ті самі люди, які щойно поставили лабораторії десятку, виходили з відділення, брали телефон, викликали таксі й отримували посилку по скану — а з лабораторією досі взаємодіяли через роздруківку й дзвінки. ДІЛА була чудовою. Просто вона жила в іншому технологічному часі, ніж її клієнти.</p>
-
-    <div class="ralso">
-      <div class="lbl">Читайте також</div>
-      <a href="#">Як сервісні компанії стають продуктовими: на прикладі EverHelp <span class="arr">→</span></a>
-    </div>
-
-    <p>Окремо ми зрозуміли роль лікаря. Більшість досліджень люди роблять із подачі лікаря — отже, лікар є ключовим гравцем у відносинах «клієнт — лабораторія». Покращити досвід треба було для всіх трьох сторін одночасно. Це і був справжній виклик: не «намалювати екрани», а зробити так, щоб уся експертиза й любов до справи, яку ми відчули в лаборантів і медсестер, стала зрозумілою для клієнта.
-І це був перший тиждень — купу інсайтів і розуміння.</p>
-
-    <!-- Section 02 -->
-    <h2 id="b2"><span class="kicker">02 — Смисловий зсув</span>Що довелось переосмислити: від транзакції до стосунків</h2>
-    <div class="rule"></div>
-
-    <p>Головний зсув, який ми мали зробити, був не технічний, а смисловий. Історично лабораторія існує в режимі разової транзакції: людина здала лабораторне дослідження, отримала результат, забула. Але якщо подивитися ширше, лабораторна діагностика — це потужний інструмент свідомого ставлення до здоровʼя. Треба було змінити не інтерфейси, а саму логіку відносин: від «разових здач» до довгострокового партнерства.</p>
-
-    <p>Щоб зрозуміти, що насправді потрібно людям, ми зробили дослідницьку фазу за методологією Jobs To Be Done. Нам комфортно працювати на основі підходу Боба Моести, а для тоншого налаштування продукту ми додаємо логіку JTBD за Тоні Ульвіком. Деталі того, що ми знайшли для ДІЛА, — це стратегічна власність клієнта, тож я не розкриватиму їх тут. Але важливий сам принцип: ми дивилися не на те, «яке лабдослідження краще продати конкретному сегменту», а на те, з якою життєвою метою людина приходить у лабораторію — і наскільки вона свідома щодо власного здоровʼя в цей момент. До речі, зрозуміли що мета — найкращий переклад оцієї job в Jobs To Be Done. Це нам підказав один з ТОПів команди Діла. З тих пір так і називаємо.</p>
-
-    <p>Це дослідження дало нам конкретні болі — і деякі з них були такими цікавими, що можна було б писати збірку комічних (і не дуже) розповідей. Виявилося, що клієнти надсилають лікарям погано зроблені фотографії паперових роздруківок. А іноді — випадково — фотографії своїх котиків замість результатів лабдосліджень. Лікарі змушені були щомісяця чистити телефони від цього. Інший біль: лікар витрачає багато часу, щоб зібрати анамнез, бо в людини немає під рукою цілісної історії її досліджень. Ці деталі ілюструють проблему краще за будь-яку статистику: справа була не в дизайні екранів, а в тому, що між людиною, лікарем і лабораторією не існувало єдиного цифрового простору.</p>
-
-    <p>Окремо варто сказати про формат співпраці. Це був не проєкт «агенція зробила застосунок». Це багаторічне партнерство з кількома хвилями роботи й кількома партнерами: айдентику ДІЛА оновлювала разом із дизайн-агенцією, над фізичним досвідом відділень працювали профільні команди retail-агенцій, розробку вів окремий технічний партнер. The Gradient у цій конфігурації виступав не тільки продакт-дизайн агенцією, але й куратором — тим, хто тримає цілісність картини, стежить, щоб стратегія, бренд, простір і продукт говорили одне й те саме, і не дає окремим напрямам розʼїхатися. Це окрема роль, і вона критична: коли над трансформацією працює кілька команд, найбільший ризик — що кожна зробить свою частину добре, а разом вони не складуться. До речі, цього вдалось запобігти.</p>
-
-    <!-- Section 03 -->
-    <h2 id="b3"><span class="kicker">03 — Нова сервісна модель</span>Шлях створення нової сервісної моделі</h2>
-    <div class="rule"></div>
-
-    <p>Принцип, на якому ми будували застосунок, можна сформулювати одним реченням.</p>
-
-    <div class="pq">
-      <span class="mk">“</span>
-      <p>Ми не починали з того, що вміють внутрішні системи. Ми починали з життя клієнта.</p>
-      <div class="at">— Базовий принцип роботи над застосунком</div>
-    </div>
-
-    <p>Не «що дозволяє CRM чи лабораторна система», а «що відбувається з людиною, коли вона отримує направлення, йде здавати кров, отримує результати й хоче повернутися до своєї історії через рік». Технічні можливості ми узгоджували вже потім.</p>
-
-    <p>Найскладніше рішення проєкту я хочу описати повністю — бо воно показує, що таке трансформація на практиці.</p>
-
-    <p>Ми затвердили стратегію й пішли концептуалізувати застосунок, поки паралельно чекали на нову айдентику й дизайн відділень. Презентували концепт — він сподобався, ми почали реалізовувати його в дизайні. Дизайни були готові вже на 85–90%, строки погоджені. А потім ми отримали нову айдентику від дизайн-агенції — і зрозуміли, що наш концепт і нова айдентика побудовані на різних принципах. UX вів в один бік, візуальна мова — в трохи інший.</p>
-
-    <p>Ми в The Gradient прийняли складне рішення: почати все заново. Збільшити команду й переосмислити застосунок наново — при тому, що дизайн був майже готовий, а дедлайни узгоджені. Строки не змінились. Це управлінське рішення ми погодили з CEO ДІЛА, і він повністю підтримав розворот. Логіка була виправдана.</p>
-
-    <div class="pq">
-      <span class="mk">“</span>
-      <p>Перше враження від застосунку можна зробити тільки один раз. Випустити продукт, де UX і бренд суперечать одне одному, — означало витратити цей єдиний шанс даремно.</p>
-      <div class="at">— Дмитро Кошевой, The Gradient</div>
-    </div>
-
-    <p>Рішення виявилося повністю виправданим. Застосунок став максимально простим. Деякі речі, які ми зробили тоді, ми потім побачили в новій iOS від Apple. Наприклад, спрощене головне меню: замість купи розділів, що копіюють архітектуру сайту, — дві основні дії. Замовити дослідження або передати результати лікарю. Застосунок став продуктом про персоналізацію зі своєю власною логікою, а не цифровою копією сайту.</p>
-
-    <p>Спрощення, до речі, виявилося найважчою частиною. Назви досліджень звучать лікарською мовою — але застосунок клієнтський. Треба було витримати баланс: спростити так, щоб людина легко орієнтувалася, але не втратити назву, яку скаже лікар. Це не зробити за день — процес триває досі, але початок покладено. Так само складною була логіка замовлень: замовлення можна почати через контакт-центр, оплатити у відділенні, є оплачені й неоплачені замовлення, направлення від лікаря, промокоди, сертифікати. Усе це треба було узгодити так, щоб клієнту було просто — без процесів, які потрібні бізнесу, але зовсім не потрібні людині.</p>
-
-    <p>А далі окремі рішення почали зчіплятися в єдиний сценарій.</p>
-
-    <p>Людина може створити замовлення прямо під час прийому в лікаря — від відкриття застосунку до нового замовлення буквально два тапи. Лікар диктує, що здати, клієнт одразу вписує. Далі — відділення, електронна черга, оплата вже зроблена в застосунку, людина майже з порога потрапляє в маніпуляційний кабінет. Результати приходять одразу в застосунок — без пошуку на пошті чи сайті. Є динаміка по біомаркерах: не просто знімок «тут і зараз», а зміна в часі, бо лікарі дивляться саме на динаміку. Результатами людина ділиться з лікарем не файлом, а захищеним лінком — він не займає місця в телефоні, доступний тільки по обраних дослідженнях і тільки до визначеної дати. Потрібно дозамовити аналіз — є вікно близько 20 днів, щоб дозамовити без повторної здачі крові. Немає свого лікаря — можна звернутися до лікарів ДІЛА через контакт-центр.</p>
-
-    <p>Жодна з цих функцій окремо не є проривом. <strong>Цінність — у тому, що вони працюють як одна система.</strong> Саме тому неможливо було «просто зробити кращий застосунок» і зупинитися.</p>
-
-    <!-- Section 04 -->
-    <h2 id="b4"><span class="kicker">04 — Результат</span>Перші результати й що далі</h2>
-    <div class="rule"></div>
-
-    <p>Найкраще зрозуміти ефект можна через шлях клієнта «до» і «після».</p>
-
-    <p><strong>До:</strong> людина дзвонила в контакт-центр або йшла у відділення, щоб замовити аналізи. Стояла в живій черзі. Платила на касі. Отримувала паперову роздруківку. Щоб показати результати лікарю — фотографувала папір (іноді невдало, іноді разом із котиком). Історія досліджень жила в голові й у стосі роздруківок.</p>
-
-    <p><strong>Після:</strong> замовлення створюється за два тапи, зокрема прямо в кабінеті лікаря. Електронна черга й оплата — у застосунку. Результати — одразу в телефоні, з динамікою в часі. Поділитися з лікарем — захищений лінк замість файлу.</p>
-
-    <p>Перший масштабний сигнал, що зміна потрібна була ринку, — кількість користувачів. За перші місяці після запуску застосунком скористалися <span class="ph">[__ користувачів]</span>. Це сильний показник з огляду на те, що клієнти й до того оцінювали ДІЛА на 10 з 10: навіть за відмінного офлайн-сервісу люди потребували простішого цифрового доступу до власних результатів.</p>
-
-    <p>Процеси у відділеннях пришвидшилися завдяки електронній черзі й кращому розподілу навантаження між касами та кабінетами. Електронна черга ще розгортається мережею, тож репрезентативних даних по всіх відділеннях поки немає — точні цифри щодо скорочення часу очікування <span class="ph">[__]</span> ми зможемо навести пізніше. Окремо ми бачимо якісний ефект усередині компанії: більше впевненості в бізнес-команди пробувати нові рішення й позитивні відгуки від медсестер і лаборантів.</p>
-
-    <p>Важливо чесно сказати: це початок, а не фініш. Партнерство тривало понад 2,5 роки — з кінця 2023-го — і закладало багато на майбутнє. Системна зміна так і працює: компанія має далі вчити людей бути свідомими щодо свого здоровʼя й підтримувати їх у цьому. <strong>Трансформація — це не про один запуск. Це про шлях.</strong></p>
-
-    <!-- Section 05 -->
-    <h2 id="b5"><span class="kicker">05 — Уроки</span>Уроки на шляху трансформації</h2>
-    <div class="rule"></div>
-
-    <p>Ось що я виніс із цього проєкту як стратег.</p>
-
-    <ul class="dl">
-      <li><strong>Починайте з життя клієнта, а не з вимог систем.</strong> Найсильніші продуктові рішення в цьому проєкті народилися не з того, що дозволяли внутрішні системи, а з того, як реально живе людина. Технічні обмеження важливі — але вони друге питання, не перше.</li>
-      <li>Перше враження робиться один раз. Ми переробили майже готовий дизайн, бо він суперечив новій айдентиці. Це коштувало часу й нервів. Але випустити неузгоджений продукт коштувало б довіри — а її повернути значно важче.</li>
-      <li>Eat your own dog food. Є такий вираз, який я почув у свого британського вчиталя по стратегії. Він про те що треба користуватись своїм продуктом. Ми робили ці зміни не для абстрактного клієнта — ми робили це для українців, для своїх сімей і для себе. Команда сама проходила цей шлях. Особисто я за час проєкту відновив печінку й скинув близько 13 кілограмів — бо нарешті зрозумів, що через лабораторну діагностику маю прямий вплив на власне здоровʼя. Здоровʼя людини — не в руках лікаря, а в руках самої людини.</li>
-    </ul>
-
-    <p>А тепер головне — для тих, хто думає про подібну трансформацію у власному бізнесі.</p>
-
-    <p>Трансформація — це <strong>не про те, що ви зробите застосунок</strong>. Якщо ви переходите на цифрову модель, орієнтовану на користувача, це тягне за собою багато модулів і зміну самих процесів. Готуйтеся, що це буде довгий етап — не спринт.</p>
-
-    <p>Саме тому критично важливо, з ким ви цей довгий етап проходите. Вам потрібен партнер, який не просто робить свою частину роботи, а дбає про те, як ця робота інтегрується в наявну систему. Процес пошуку такого партнера — непростий, і це нормально.</p>
-
-    <p>І останнє. Памʼятайте, що ви аутсорсите саме ті речі, у яких ваша компанія не сильна, — і це правильно. Ваша компанія успішна завдяки своїй ключовій компетенції. У ній ви сильні. Але здорове ставлення до трансформації означає визнати свої слабкі сторони й знайти партнерів, які проведуть вас цим шляхом, підтримають і співпрацюватимуть із вами — щоб компанія органічно перейшла на новий етап, а наявна система при цьому не розвалилася.</p>
-
-    <p>Бо найважливіше у трансформації — не інтерфейс, який побачить клієнт. <strong>А те, що його дані, його здоровʼя й контроль над ним нарешті опиняються в його власних руках.</strong></p>
-
-    <!-- Tags -->
-    <div class="tags">
-      <a class="tag" href="#">#трансформація</a>
-      <a class="tag" href="#">#продуктова_стратегія</a>
-      <a class="tag" href="#">#healthtech</a>
-      <a class="tag" href="#">#JTBD</a>
-      <a class="tag" href="#">#ДІЛА</a>
-      <a class="tag" href="#">#TheGradient</a>
-      <a class="tag" href="#">#сервіс_дизайн</a>
-    </div>
-
-    <!-- Author card -->
-    <div class="authorcard">
-      <div class="av">ДК</div>
-      <div>
-        <div class="name">Дмитро Кошевой</div>
-        <div class="role">Associate Partner · The Gradient</div>
-        <div class="bio">Продуктовий стратег. Допомагає сервісним компаніям перейти у продуктову модель: від дослідження клієнта й JTBD — до сервісного дизайну й операційних змін у бізнесі.</div>
-      </div>
-      <a class="follow" href="#">Стежити</a>
-    </div>
-
-    <!-- Comments stub -->
-    <div class="comments">
-      <h3>Коментарі <span class="chip">17</span></h3>
-      <div class="sub">Поділіться думкою про матеріал. Будь ласка, без переходу на особистості.</div>
-      <textarea placeholder="Ваш коментар…"></textarea>
-      <div class="foot">
-        <span>Підтримуємо Markdown. Будьте ввічливими.</span>
-        <button class="submit">Надіслати</button>
-      </div>
-    </div>
-
+  <!-- Body (генерується з content.md) -->
+  <article id="article-body" class="body">
+    <p class="loading">Завантаження статті…</p>
   </article>
 
   <!-- Right rail TOC -->
   <aside class="rail-r">
     <div class="toc" id="toc">
       <div class="ttl">У цьому матеріалі</div>
-      <ol>
-        <li class="on" data-target="b1"><a href="#b1"><span class="n">01</span><span>Чому переосмислення лабораторії стало неминучим</span></a></li>
-        <li data-target="b2"><a href="#b2"><span class="n">02</span><span>Від транзакції до стосунків</span></a></li>
-        <li data-target="b3"><a href="#b3"><span class="n">03</span><span>Шлях створення нової сервісної моделі</span></a></li>
-        <li data-target="b4"><a href="#b4"><span class="n">04</span><span>Перші результати й що далі</span></a></li>
-        <li data-target="b5"><a href="#b5"><span class="n">05</span><span>Уроки на шляху трансформації</span></a></li>
-      </ol>
+      <ol id="toc-list"></ol>
     </div>
   </aside>
 
@@ -895,34 +288,297 @@ a{ color:inherit; }
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
 <script>
-// Progress bar
-const fill = document.getElementById('pfill');
-addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const max = h.scrollHeight - h.clientHeight;
-  fill.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
-}, { passive: true });
+(async function () {
+  const bodyEl = document.getElementById('article-body');
 
-// TOC scrollspy
-const tocItems = document.querySelectorAll('#toc li');
-const sections = [...tocItems].map(li => {
-  const id = li.dataset.target;
-  return { li, el: document.getElementById(id) };
-}).filter(x => x.el);
-
-function spy(){
-  const y = window.scrollY + 140;
-  let active = sections[0];
-  for (const s of sections){
-    if (s.el.offsetTop <= y) active = s;
+  // ---- 1. Завантажити content.md (з обходом кешу) ----
+  let raw;
+  try {
+    const res = await fetch('content.md?v=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    raw = await res.text();
+  } catch (e) {
+    bodyEl.innerHTML =
+      '<div class="err"><b>Не вдалося завантажити <code>content.md</code>.</b><br>' +
+      'Це нормально, якщо відкрити <code>index.html</code> подвійним кліком (file://). ' +
+      'Працює тільки через сервер — напр. GitHub Pages, або локально: ' +
+      '<code>python3 -m http.server</code>.<br>Деталі: ' + e.message + '</div>';
+    return;
   }
-  tocItems.forEach(li => li.classList.remove('on'));
-  if (active) active.li.classList.add('on');
-}
-addEventListener('scroll', spy, { passive: true });
-spy();
-</script>
 
+  // прибрати службовий HTML-коментар із правилами
+  raw = raw.replace(/^\uFEFF/, '').replace(/<!--[\s\S]*?-->/, '').replace(/^\s+/, '');
+
+  // ---- 2. Розділити шапку і тіло за першим рядком "---" ----
+  const lines = raw.split(/\r?\n/);
+  let cut = lines.findIndex(l => /^-{3,}\s*$/.test(l.trim()));
+  if (cut < 0) cut = 0;
+  const headLines = lines.slice(0, cut);
+  const bodyMd = lines.slice(cut + 1).join('\n');
+
+  // заголовок: рядок "# ..."  (**слово** -> помаранчевий акцент)
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  let titlePlain = 'vector — стаття', titleHtml = titlePlain, deckHtml = '';
+  for (const ln of headLines) {
+    const mT = ln.match(/^#\s+(.+)$/);
+    if (mT) {
+      titlePlain = mT[1].replace(/\*\*(.+?)\*\*/g, '$1').trim();
+      titleHtml  = esc(mT[1]).replace(/\*\*(.+?)\*\*/g, '<em>$1</em>').trim();
+    }
+    const mD = ln.match(/^\*\*Дек:\*\*\s*(.+)$/);
+    if (mD) deckHtml = marked.parseInline(mD[1].trim());
+  }
+  document.title = titlePlain + ' — vector';
+  const hEl = document.querySelector('.headline');
+  const dEl = document.querySelector('.deck');
+  if (hEl) hEl.innerHTML = titleHtml;
+  if (dEl) dEl.innerHTML = deckHtml || dEl.innerHTML;
+  const crumbHere = document.querySelector('.crumb .here');
+  if (crumbHere) crumbHere.textContent = titlePlain;
+
+  // ---- 3. Markdown -> HTML ----
+  marked.setOptions({ breaks: false, gfm: true });
+  const tmp = document.createElement('div');
+  tmp.innerHTML = marked.parse(bodyMd);
+
+  const T = (el) => (el ? el.textContent.trim() : '');
+
+  // ---- 4a. Перший абзац -> lead ----
+  try {
+    const firstP = tmp.querySelector('p');
+    if (firstP) firstP.classList.add('lead');
+  } catch (e) {}
+
+  // ---- 4b. Цитати: takeaways / читайте також / pull quote ----
+  try {
+    [...tmp.querySelectorAll('blockquote')].forEach(bq => {
+      const txt = T(bq);
+      const strong = bq.querySelector('strong');
+      const sTxt = T(strong);
+
+      if (/Головне зі статті/i.test(sTxt) || /Головне зі статті/i.test(txt)) {
+        const ul = bq.querySelector('ul');
+        const box = document.createElement('aside');
+        box.className = 'takeaways';
+        box.innerHTML =
+          '<div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5L20 7"/></svg>' +
+          (sTxt || 'Головне зі статті') + '</div>';
+        if (ul) box.appendChild(ul);
+        bq.replaceWith(box);
+        return;
+      }
+
+      if (/Читайте також/i.test(sTxt)) {
+        let rest = txt.replace(/Читайте також:?\s*/i, '').trim();
+        const box = document.createElement('div');
+        box.className = 'ralso';
+        box.innerHTML =
+          '<div class="lbl">Читайте також</div>' +
+          '<a href="#">' + esc(rest.replace(/\s*→\s*$/, '')) +
+          ' <span class="arr">→</span></a>';
+        bq.replaceWith(box);
+        return;
+      }
+
+      // pull quote
+      const ps = [...bq.querySelectorAll('p')];
+      let attr = '';
+      const quoteParts = [];
+      ps.forEach(p => {
+        const t = T(p);
+        if (/^—/.test(t)) attr = t.replace(/^—\s*/, '');
+        else quoteParts.push(p.innerHTML);
+      });
+      const pq = document.createElement('div');
+      pq.className = 'pq';
+      pq.innerHTML =
+        '<span class="mk">\u201C</span>' +
+        quoteParts.map(h => '<p>' + h + '</p>').join('') +
+        (attr ? '<div class="at">' + esc(attr) + '</div>' : '');
+      bq.replaceWith(pq);
+    });
+  } catch (e) {}
+
+  // ---- 4c. H2: кікер + риска + id ----
+  try {
+    let n = 0;
+    [...tmp.querySelectorAll('h2')].forEach(h2 => {
+      n++;
+      const id = 'b' + n;
+      h2.id = id;
+      const m = T(h2).match(/^\s*(\d+\s*[—-]\s*[^.]+?)\.\s*(.+)$/);
+      if (m) {
+        h2.innerHTML = '<span class="kicker">' + esc(m[1].trim()) + '</span>' + esc(m[2].trim());
+      }
+      const rule = document.createElement('div');
+      rule.className = 'rule';
+      h2.after(rule);
+    });
+  } catch (e) {}
+
+  // ---- 4d. Кроки процесу: "**NN → Назва.** текст" підряд ----
+  try {
+    const kids = [...tmp.children];
+    let i = 0;
+    while (i < kids.length) {
+      const isStep = el =>
+        el && el.tagName === 'P' && /^\s*\d+\s*→/.test(T(el));
+      if (isStep(kids[i])) {
+        const group = [];
+        let j = i;
+        while (isStep(kids[j])) { group.push(kids[j]); j++; }
+        if (group.length >= 2) {
+          const wrap = document.createElement('div');
+          wrap.className = 'process';
+          group.forEach(p => {
+            const st = p.querySelector('strong');
+            const head = T(st);                    // "01 → Назва."
+            const mm = head.match(/^\s*(\d+)\s*→\s*(.+?)\.?\s*$/);
+            const num = mm ? mm[1] : '';
+            const ttl = mm ? mm[2] : head;
+            let bodyHtml = p.innerHTML;
+            if (st) bodyHtml = bodyHtml.replace(st.outerHTML, '');
+            bodyHtml = bodyHtml.replace(/^\s*[:.\u2014-]?\s*/, '');
+            const it = document.createElement('div');
+            it.className = 'it';
+            it.innerHTML =
+              '<div class="s">' + esc(num) + '</div>' +
+              '<div><h4>' + esc(ttl) + '</h4><p>' + bodyHtml + '</p></div>';
+            wrap.appendChild(it);
+          });
+          group[0].replaceWith(wrap);
+          group.slice(1).forEach(el => el.remove());
+        }
+        i = j;
+      } else i++;
+    }
+  } catch (e) {}
+
+  // ---- 4e. До / Після -> compare ----
+  try {
+    const kids = [...tmp.children];
+    const findPair = (label) => {
+      for (let k = 0; k < kids.length; k++) {
+        const p = kids[k];
+        if (p && p.tagName === 'P' && new RegExp('^' + label + ':?$','i').test(T(p))) {
+          const ul = p.nextElementSibling;
+          if (ul && ul.tagName === 'UL') return [p, ul];
+        }
+      }
+      return null;
+    };
+    const before = findPair('До');
+    const after  = findPair('Після');
+    if (before && after) {
+      const col = (cls, lbl, ul) => {
+        const items = [...ul.querySelectorAll(':scope > li')]
+          .map(li => '<li>' + li.innerHTML + '</li>').join('');
+        return '<div class="col ' + cls + '"><div class="lbl"><span class="dot"></span>' +
+               lbl + '</div><ul>' + items + '</ul></div>';
+      };
+      const cmp = document.createElement('div');
+      cmp.className = 'compare';
+      cmp.innerHTML = col('before','До', before[1]) + col('after','Після', after[1]);
+      before[0].replaceWith(cmp);
+      [before[1], after[0], after[1]].forEach(el => el && el.remove());
+    }
+  } catch (e) {}
+
+  // ---- 4f. Ключові цифри -> stats ----
+  try {
+    const kids = [...tmp.children];
+    for (let k = 0; k < kids.length; k++) {
+      const p = kids[k];
+      if (p && p.tagName === 'P' && /^Ключові цифри:?$/i.test(T(p))) {
+        const ul = p.nextElementSibling;
+        if (ul && ul.tagName === 'UL') {
+          const grid = document.createElement('div');
+          grid.className = 'stats';
+          [...ul.querySelectorAll(':scope > li')].forEach(li => {
+            const html = li.innerHTML;
+            let numHtml, labelHtml;
+            const dash = html.indexOf('\u2014'); // "—"
+            if (dash > -1) {
+              numHtml   = html.slice(0, dash).trim();
+              labelHtml = html.slice(dash + 1).trim();
+            } else {
+              const tok = li.querySelector('strong, code');
+              numHtml   = tok ? tok.outerHTML : html;
+              labelHtml = tok ? html.replace(tok.outerHTML, '').trim() : '';
+            }
+            const st = document.createElement('div');
+            st.className = 'stat';
+            st.innerHTML = '<div class="n">' + numHtml + '</div>' +
+                           '<div class="l">' + labelHtml + '</div>';
+            grid.appendChild(st);
+          });
+          p.replaceWith(grid);
+          ul.remove();
+        }
+      }
+    }
+  } catch (e) {}
+
+  // ---- 4g. Теги -> чіпи ----
+  try {
+    [...tmp.querySelectorAll('p')].forEach(p => {
+      const st = p.querySelector('strong');
+      if (st && /^Теги:?$/i.test(T(st))) {
+        const tags = (T(p).replace(/Теги:?/i, '').match(/#[^\s#]+/g) || []);
+        const box = document.createElement('div');
+        box.className = 'tags';
+        box.innerHTML = tags.map(t =>
+          '<a class="tag" href="#">' + esc(t) + '</a>').join('');
+        p.replaceWith(box);
+      }
+    });
+  } catch (e) {}
+
+  // ---- 5. Вставити готове тіло ----
+  bodyEl.innerHTML = '';
+  while (tmp.firstChild) bodyEl.appendChild(tmp.firstChild);
+
+  // ---- 6. Згенерувати TOC із h2 ----
+  try {
+    const toc = document.getElementById('toc-list');
+    const heads = [...bodyEl.querySelectorAll('h2')];
+    if (toc) {
+      toc.innerHTML = heads.map((h, idx) => {
+        const k = h.querySelector('.kicker');
+        let label = k ? h.textContent.replace(k.textContent, '').trim()
+                       : h.textContent.trim();
+        const num = String(idx + 1).padStart(2, '0');
+        return '<li data-target="' + h.id + '"><a href="#' + h.id + '">' +
+               '<span class="n">' + num + '</span><span>' + label + '</span></a></li>';
+      }).join('');
+    }
+  } catch (e) {}
+
+  // ---- 7. Прогрес-бар + scrollspy ----
+  const fill = document.getElementById('pfill');
+  if (fill) {
+    addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      fill.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    }, { passive: true });
+  }
+  const tocItems = document.querySelectorAll('#toc li');
+  const sections = [...tocItems].map(li => ({
+    li, el: document.getElementById(li.dataset.target)
+  })).filter(x => x.el);
+  function spy() {
+    const y = window.scrollY + 140;
+    let active = sections[0];
+    for (const s of sections) if (s.el.offsetTop <= y) active = s;
+    tocItems.forEach(li => li.classList.remove('on'));
+    if (active) active.li.classList.add('on');
+  }
+  addEventListener('scroll', spy, { passive: true });
+  spy();
+})();
+</script>
 </body>
 </html>
