@@ -4,14 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Running the project
 
-The article must be served over HTTP — opening `index.html` directly via `file://` will fail to load `content.md` due to browser CORS restrictions. Use any static file server:
-
 ```bash
-python3 -m http.server
-# then open http://localhost:8000
+npm run dev   # starts browser-sync, auto-reloads on content.md / style.css / index.html changes
 ```
 
-There is no build step, no package manager, and no test suite.
+Opens at `http://localhost:3000`. The browser reloads automatically whenever `content.md` is saved — no manual refresh needed.
+
+> The article must be served over HTTP. Opening `index.html` via `file://` fails because the script fetches `content.md` and browsers block that cross-origin.
+
+There is no build step and no test suite.
 
 ## Architecture
 

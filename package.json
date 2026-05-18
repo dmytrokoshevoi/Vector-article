@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "browser-sync start --server --files 'content.md, style.css, index.html' --no-notify"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4"
+  }
+}
